@@ -1,0 +1,37 @@
+	{% for post in posts %}
+	<!-- place ads for every 4rd item -->
+		 {% if forloop.first or forloop.counter|divisibleby:4 %}
+			#ads here
+		 {% endif %}
+		<div class="card" {% if forloop.first %}style-different{% endif %}>
+		  <div class="card-image">
+		    <figure class="image is-4by3">
+		      <img src="{{ post.bkgrd_pic.url}}" alt="{{post.title}}">
+		    </figure>
+		  </div>
+		  <div class="card-content">
+		    <div class="media">
+		      <div class="media-left">
+		        <figure class="image is-48x48">
+		          <img src="" alt="">
+		        </figure>
+		      </div>
+		      <div class="media-content">
+			  <img src="{{ post.author.profile.pic_url}}" alt="" style="width:50px;height:50px;border-radius:50%;">
+		        <p class="title is-4">{{ post.author.username }}</p>
+		        <p class="subtitle is-6">@{{ post.author.username }}</p>
+				<p class="subtitle is-6">ID : {{ post.author.profile.code }}</p>
+		      </div>
+		    </div>
+
+		    <div class="content">
+		      {{post.content}}
+		      <a>@bulmaio</a>.
+		      <a href="{{ post.get_absolute_url }}">READ</a>
+		      <br>
+		      <time datetime="2016-1-1">{{ post.time_ago}}</time>
+		    </div>
+		  </div>
+		</div>
+	{% endfor %}
+

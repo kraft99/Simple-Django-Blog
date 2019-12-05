@@ -1,0 +1,54 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<meta charset="utf-8">
+	<!-- include base css -->
+	{% include 'partials/base_css.html' %}
+	{% block style %}{% endblock %}
+</head>
+<body>
+	<!-- navigation -->
+	{% include 'partials/_nav.html' %}
+	<!-- /end navigation -->
+
+	<!-- page content -->
+	{% block  content %}
+
+	{% endblock %}
+	<!-- / content -->
+	<!-- scripts -->
+	<script type="text/javascript" src="{% static 'js/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
+	<!-- Js-Html -->
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded',function(){
+			var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'),0);
+
+			if($navbarBurgers.length > 0){
+				$navbarBurgers.forEach(function ($el){
+					$el.addEventListener('click',function(){
+
+						var target = $el.dataset.target;
+						var $target = document.getElementById(target);
+						$el.classList.toggle('is-active');
+						$target.classList.toggle('is-active');
+					});
+
+				});
+			} 
+
+
+		});
+	</script>
+	
+	<script type="text/javascript">
+	{% block js %}
+			
+	{% endblock %}
+	</script>
+</body>
+</html>

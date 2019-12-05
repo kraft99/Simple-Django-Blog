@@ -1,0 +1,148 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block title %}
+	{{post.title}} by @{{post.author.username}}
+{% endblock %}
+
+{% block content %}
+<section class="hero is-light is-bold">
+	<section class="hero-body">
+		<section class="container">
+			<section class="columns">
+				<!-- column 1 left align-->
+				<section class="column">
+					<figure class="image is-2bg1">
+						<img src="{{post.bkgrd_pic.url}}">
+					</figure>
+				</section>
+				<!-- /column 1 -->
+				<!-- column 2 -->
+				<section class="column">
+					<h1 class="title is-2">{{ post.title }}</h1>
+					<p class="title is-6"> 
+						<span>{{ post.views }} view{{ post.views|pluralize }}</span>,
+						<span>{{ post.post_read_time }} readtime</span>
+					</p>
+					<p>
+						Posted : <span class="title is-7">{{ post.time_ago }}</span>,
+						<span class="title is-7"><span class="like-counter">{{likes_count}}</span> Like{{ likes_count|pluralize }}</span>
+					</p>
+					<p class="title is-5">Author : <a href="#" title="@{{ post.author.username }} profile">@{{ post.author.username }}</a>
+					</p>
+					<p class="title is-6"> 
+						({{author_posts_count}}) Post{{ author_posts_count|pluralize }}
+					</p>
+
+					<section class="share-links-wrap">
+						<a class="share-link" href="#">share</a>
+						<section class="links-to-social">
+							<a href="{{facebook_share}}" class="navbar-item" target="_blank">share on facebook</a>
+							<a href="{{google_plus_share}}" class="navbar-item" target="_blank">share on google-plus</a>
+							<a href="{{post_url}}" class="navbar-item click-to-copy">copy link (click to copy)</a>
+						</section>
+					</section>
+					<section class="ff-btn-collection">
+						<button class="button is-primary">12k Followers</button>
+						<button class="button is-primary">100 Following</button>
+					</section>
+					<section class="" style="margin-top: 3.5rem;">
+						<form action="{% url 'like:post-like' %}" method="POST" 
+							id="like-form" 
+							class="{% if not is_auth %}auth-modal{% endif %}">
+							{% csrf_token %}
+							<input type="hidden" value="{{ post.id }}" name="post-id" class="post_id">
+							<input type="hidden" value="{% if request.user.is_authenticated %}
+							{{request.user.username}}{% endif %}" name="username" class="username">
+							<button class="button is-warning like-btn">
+							 {% if is_likes %}
+							   UnLike
+							 {% else %}
+							   Like
+							 {% endif %}
+						    </button>
+						</form>
+					</section>
+				</section>
+			</section>
+		</section>
+	</section>
+</section>
+<section class="container">
+	<section class="columns">
+		<section class="column">
+			<p>{{ post.content }}</p>
+		</section>
+	</section>
+</section>
+<section class="container">
+			<h3 class="title is-4">Comments</h3>
+	<section class="columns">
+		<section class="column">
+			<section>
+				<form action="." method="POST">
+					{% csrf_token %}
+					{{ form }}
+				 <section>
+					<button class="button is-primary" 
+						type="submit" {% if not is_auth %} 
+						disabled="disabled" 
+						{% endif %}>
+					 post comment
+					</button>
+				 </section>
+				</form>
+			</section>
+			{% if comments %}
+				{% for comment in comments %}
+				<!-- {{comment.content_object}} -->
+				<p class="title is-4">{{ comment.content }} by
+				 <small>@{{ comment.user.username}} | {{comment.humantime}}</small>
+				</p>
+				
+				<div class="toggle-reply">
+					<span>{% if comment.reply.count > 0 %}({{comment.reply.count}}) reply'{{comment.reply.count|pluralize}} {% endif %}</span>
+					<a href="#" class="reply-btn">|reply </a>to comment
+					<span><a href="{{ comment.get_absolute_url }}">threads</a></span>
+				</div>
+				
+				<section class="reply-wrapper" style="display: none;" id="">
+						{% for reply in comment.reply %}
+						<blockquote class="title is-6">
+						 <p>{{ reply.content }}</p>
+						 <footer>by @{{ reply.user.username}} | {{reply.humantime}}</footer>
+						</blockquote> 
+						{% endfor %}
+						<form action="." method="POST">
+							{% csrf_token %}
+							<input type="hidden" name="parent_id" value="{{ comment.id }}">
+							{{ form }}
+						 <section>
+						 <button class="button is-default" 
+								type="submit" {% if not is_auth %} 
+								disabled="disabled" 
+								{% endif %}>
+							 reply
+						 </button>
+						 </section>
+						</form>
+				</section>
+				<hr>
+				{% endfor %}
+			{% else %}
+				<span>No comments for post</span>
+			{% endif %}
+		</section>
+	</section>
+</section>
+{% endblock %}
+
+{% block js %}
+	$('.toggle-reply > span + a.reply-btn').click(function(e){
+		e.preventDefault();
+		$(this).parent().next('.reply-wrapper').toggle();
+		<!-- console.log($(this).parent().next('.reply-wrapper')); -->
+	});
+		
+{% endblock %}
+

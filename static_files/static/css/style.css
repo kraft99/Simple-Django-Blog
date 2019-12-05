@@ -1,0 +1,16 @@
+.share-links-wrap{
+	position: relative;
+}
+
+.share-link + .links-to-social{
+	display: none;
+	width: 200px;
+	background: #fff;
+	margin-bottom: 2rem;
+	position: absolute;
+	top: -7rem;
+	left: 44px;
+	border-radius: 2px;
+
+}
+

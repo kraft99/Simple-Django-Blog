@@ -1,0 +1,38 @@
+{% load static %}
+
+	<nav class="navbar is-primary has-shadow" role="navigation" aria-label="Main navigation">
+		<section class="container">
+			<section class="navbar-brand">
+				<a href="{% url 'blog:post-lists' %}" class="navbar-item">DJango Blog</a>
+				<button class="button navbar-burger" data-target="navMenu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</section>
+			<section class="navbar-menu" id="navMenu">
+				<section class="navbar-start">
+					<!-- <a href="" class="navbar-item">Link 1</a>
+					<a href="" class="navbar-item">Link 2</a> -->
+				</section>
+				<section class="navbar-end">
+					{% if request.user.is_anonymous %}
+					<a href="" class="navbar-item">SignUp</a>
+					<a href="" class="navbar-item">Login</a>
+					{% endif %}
+					{% if request.user.is_authenticated %}
+
+					<section class="navbar-item has-dropdown is-hoverable">
+						<a href="" class="navbar-link">
+						{% if request.user.is_authenticated %}{{request.user.username}}{% endif %}</a>
+						<section class="navbar-dropdown">
+							<a href="" class="navbar-item">Link 2</a>
+							<a href="" class="navbar-item">Link 3</a>
+						</section>
+					</section>
+					<img class="navbar-item" src="{% static 'images/default/avatar.jpeg' %}"  style="height:52px;width: 60px" />
+				    {% endif %}
+				</section>
+			</section>
+		</section>
+	</nav>

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block title %} Post List {% endblock %}
+
+{% block  content %}
+<section class="container" style="margin-top: 2em;">
+	<section class="columns">
+		<h2 class="title is-3">{% trans 'Post Lists' %}</h2>
+	</section>
+</section>
+
+<section class="columns is-centered">
+	<section class="column is-half-tablet is-two-third-desktop is-three-quater-widescreen">
+		<section id="post-list">
+			{% include "partials/_list_ajax.html" %}
+		</section>
+   </section>
+</section>
+
+{% endblock %}
+
+<!-- Infinite Scroll Pagination -->
+{% block js %}
+	var page = 1;
+	var empty_page = false;
+	var block_request = false;
+
+	$(window).scroll(function() {
+	var margin = $(document).height() - $(window).height() - 250;
+	if ($(window).scrollTop() > margin && empty_page == false &&
+	block_request == false) {
+		block_request = true;
+			page += 1;
+			$.get('?page=' + page, function(data) {
+		if(data == '') {
+			empty_page = true;
+		}
+		else {
+			block_request = false;
+		$('#post-list').append(data);
+		}
+	   });
+	  }
+	});
+
+<!-- /End Finite Scroll Pagination -->
+{% endblock %}

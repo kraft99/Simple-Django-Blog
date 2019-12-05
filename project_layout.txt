@@ -1,0 +1,138 @@
+DJANGO BLOG
+
+Follow :
+
+Django By Example (Book)
+
+** Blog App
+** Bookmark App - Vote up & Down (contenttype)
+
+
+
+
+
+NOTE :
+1] BUILD API
+2] WRITE TEST
+
+
+**Specify whether posts should be views by everyone,followers,following,select a viewer
+**Schedule posts from blog
+**Fetch API - crud (Blog Post)
+(GENERIC FOREIGNKEY)
+**Vote Up & Down
+**Like & UnLike (Youtube)
+**posts share on social medias,click to copy link
+**High charts.js for users - posts,comments
+
+
+Newsletter subscriptions - subscribe & unsubscribe to newsletters
+
+Social Authentication
+
+Infinite scroll pagination and normal paginations
+
+Comments & Reply with Threads (sentiment) - (contenttype)
+Views counter (with sessions)
+*custom decorators - post owner,admin only view,followers,following,anonymous
+*custom tags and filters - blogs,posts,followers,..
+*post viewers counter - ip,sessions,login credentials,..
+
+*Search - Elastic search & haystack
+
+
+Image
+* upload & downloads
+* image cropping 
+* image filter - black and white,blur etc.
+
+Account
+* gravatar
+* Generate Random avatar for users based on username & credentials
+(random background color -like its done in gmail)
+* Custom passowrd reset,change & account delete
+* honeypots in hidden input forms
+* custom user - abstract,baseabstract
+* send email to users to confirm account delete
+* Friend & UnFriend,Block Users etc.
+* Profile - create,delete,edit,search
+* login,logout,register
+* custom reset password,change password
+* delete profile pic when changed with new pic
+* login with either - email,phonenumber,ID & password
+* social authenctication
+* account activation token
+* get username from email and email with with token activation
+* change username,email,password,phone number
+* session-based login,logout,signup
+* restrict certain names or banned - when user create email or generate username for email
+* block in active account after 21 days
+* remove old accounts from db after 3 months
+* block user account after attempts - Y times , Y - 3,4..7
+* generate 6-number id for users (public) eg. ID : 23BVDE
+* restrict users from editing accounts,until 16 days after any edits made reset (with counter to remind them).
+
+
+(GENERIC FOREIGNKEY)
+* Comments and Reply (threads).
+* Spam checker in comments and reply.
+* Admin check reply and comments - accept or reject
+
+
+sitemaps,feeds
+
+**Email - SendGrid & MailChimp
+
+**WYSIWYG editors & Markdown
+
+**Render posts as PDF (print,downloads,emailing) - weazyprint & reportlab
+
+
+
+EXPLORE NEW PACKAGES
+
+** Celery
+ - send emails
+ - background tasks
+ - delete users,block account of expired and one time account. etc
+
+** Redis
+- broker for celery.
+
+
+EXPLORE TIPS
+
+** logging
+** coverage
+
+
+
+
+API
+
+* Google,Analytics Map API
+* SendGrid,MailChimp
+* Social API Authentication
+
+
+
+Front End
+
+* Bulma
+* Sass
+* Webpack
+
+
+
+Extend with a :
+
+* API
+* GraphQl
+* Amazon s3
+* React.js
+
+
+Deploy
+* Nginx
+* Digital Ocean or Heroku & Amazon s3
++ Lets Encrypt cert.

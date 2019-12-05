@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+yapf = "*"
+
+[packages]
+django = "*"
+djangorestframework = "==3.9.1"
+pillow = "==5.2.0"
+redis = "==3.1.0"
+django-imagekit = "==2.0.4"
+python-decouple = "==3.1"
+install = "*"
+django-taggit = "*"
+celery = "*"
+django-widget-tweaks = "==1.4.3"
+dj-database-url = "==0.5.0"
+social-auth-app-django = "*"
+django-debug-toolbar = "==1.11"
+gettext = "*"
+python-gettext = "*"
+
+[requires]
+python_version = "3.5"

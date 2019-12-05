@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<section class="container">
+			<h3 class="title is-4">Comment Thread to <b>{{ post.title }}</b></h3>
+			<span><a href="{{ post.get_absolute_url }}">back</a> to post</span>
+	<section class="columns">
+		<section class="column">
+				<p class="title is-4">{{ comment.content }} by
+				 <small>@{{ comment.user.username}} | {{comment.humantime}}</small>
+				</p>
+				<hr>
+				<div>
+					<p>Threads to comment (<b>{{comment.content}}</b>)</p>
+					{% for reply in comment.reply %}
+						<p><i>{{reply.content}} by @{{ reply.user.username}} | {{reply.humantime}}</i></p>
+						<p>{{reply.get_absolute_url}}</p>
+						{% if request.user.is_authenticated and request.user == reply.user %}
+							<a class="button is-warning" href="{{ reply.get_delete_url }}">delete</a>
+						{% endif %}
+					{% endfor %}
+
+					<form action="." method="POST">
+					{% csrf_token %}
+						<input type="hidden" name="parent_id" value="{{ comment.id }}">
+						{{ form }}
+						<section>
+						<button class="button is-default" 
+									type="submit">
+								 reply
+						</button>
+						</section>
+				    </form>
+				</div>
+		</section>
+	</section>
+</section>
+
+{% endblock %}
